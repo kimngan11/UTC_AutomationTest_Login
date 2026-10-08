@@ -33,6 +33,16 @@ class TestLogin(BaseTest):
                       f"Thông báo lỗi không đúng kỳ vọng. Nhận được: '{error_msg}'")
 
     def test_tc02_empty_password(self):
+        """TC02: Để trống Mật khẩu (chỉ nhập Tên đăng nhập)"""
+        self.login_page.enter_username("huongnt")
+        self.login_page.click_login()
+        
+        error_msg = self.login_page.get_error_message()
+        self.login_page.capture_screenshot("TC02_empty_password.png")
+        self.assertIn("Bạn chưa nhập mật khẩu", error_msg,
+                      f"Thông báo lỗi không đúng kỳ vọng. Nhận được: '{error_msg}'")
+
+    def test_tc03_correct_user_wrong_pass(self):
 
 if __name__ == '__main__':
     unittest.main()
