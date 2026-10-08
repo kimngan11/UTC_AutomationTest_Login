@@ -383,9 +383,19 @@ def create_driver(headless=False):
 def main():
     parser = argparse.ArgumentParser(description="Chạy kiểm thử tự động Văn phòng điện tử UTC")
     parser.add_argument("--headless", action="store_true", help="Chạy ở chế độ trình duyệt ẩn (headless)")
+    parser.add_argument("--allure", action="store_true", help="Chạy kiểm thử với Pytest và tạo báo cáo Allure Report")
     args = parser.parse_args()
 
     is_headless = args.headless or config.HEADLESS
+
+    if args.allure:
+        print("[*] Chuyển tiếp sang bộ chạy Pytest + Allure Report...")
+        import subprocess
+        cmd = [sys.executable, "run_allure.py"]
+        if is_headless:
+            cmd.append("--headless")
+        subprocess.run(cmd)
+        return
 
     print("=" * 80)
     print(" BẮT ĐẦU CHẠY TOÀN BỘ BỘ KIỂM THỬ AUTOMATION: VĂN PHÒNG ĐIỆN TỬ UTC ")

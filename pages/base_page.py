@@ -70,8 +70,17 @@ class BasePage:
         return self.driver.title
 
     def capture_screenshot(self, filename: str) -> str:
-        """Chụp ảnh màn hình lưu vào thư mục screenshots"""
+        """Chụp ảnh màn hình lưu vào thư mục screenshots và tự động đính kèm vào Allure Report (nếu có)"""
         os.makedirs(config.SCREENSHOT_DIR, exist_ok=True)
         filepath = os.path.join(config.SCREENSHOT_DIR, filename)
         self.driver.save_screenshot(filepath)
+        try:
+            import allure
+            allure.attach.file(
+                filepath,
+                name=filename,
+                attachment_type=allure.attachment_type.PNG
+            )
+        except Exception:
+            pass
         return filepath
