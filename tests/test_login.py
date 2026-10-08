@@ -230,6 +230,13 @@ class TestLogin(BaseTest):
         self.assertEqual(pwd_ph, "Mật khẩu", f"Placeholder Password không đúng: '{pwd_ph}'")
 
     def test_tc19_tab_key_navigation(self):
+        """TC19: Kiểm tra điều hướng chuyển con trỏ nhập liệu bằng phím Tab"""
+        focused_elem_name = self.login_page.navigate_with_tab_key()
+        self.login_page.capture_screenshot("TC19_tab_navigation.png")
+        self.assertEqual(focused_elem_name, "userpwd",
+                         f"Phím Tab không chuyển focus tới ô mật khẩu (userpwd). Nhận được: '{focused_elem_name}'")
+
+    def test_tc20_footer_links(self):
 
 if __name__ == '__main__':
     unittest.main()
