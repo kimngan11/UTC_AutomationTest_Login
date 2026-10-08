@@ -211,6 +211,17 @@ class TestLogin(BaseTest):
                         f"Hệ thống xử lý chuỗi dài không đúng: '{error_msg}'")
 
     def test_tc17_special_characters(self):
+        """TC17: Tên đăng nhập chứa tập ký tự đặc biệt (!@#$%^&*())"""
+        self.login_page.enter_username("admin!@#$%^&*()")
+        self.login_page.enter_password("123456")
+        self.login_page.click_login()
+        time.sleep(1)
+        error_msg = self.login_page.get_error_message()
+        self.login_page.capture_screenshot("TC17_special_chars.png")
+        self.assertTrue("Tài khoản" in error_msg or "mật khẩu" in error_msg,
+                        f"Hệ thống xử lý ký tự đặc biệt không đúng: '{error_msg}'")
+
+    def test_tc18_placeholders(self):
 
 if __name__ == '__main__':
     unittest.main()
