@@ -147,6 +147,15 @@ class TestLogin(BaseTest):
     # =========================================================================
 
     def test_tc11_login_with_enter_key(self):
+        """TC11: Đăng nhập bằng cách nhấn phím Enter từ bàn phím"""
+        self.login_page.press_enter_on_password("1256")
+        time.sleep(1)
+        error_msg = self.login_page.get_error_message()
+        self.login_page.capture_screenshot("TC11_enter_key.png")
+        self.assertIn("Bạn chưa nhập tên đăng nhập", error_msg,
+                      f"Nhấn Enter không kích hoạt gửi form kiểm tra: '{error_msg}'")
+
+    def test_tc12_space_only_username(self):
 
 if __name__ == '__main__':
     unittest.main()
