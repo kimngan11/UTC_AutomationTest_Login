@@ -156,6 +156,17 @@ class TestLogin(BaseTest):
                       f"Nhấn Enter không kích hoạt gửi form kiểm tra: '{error_msg}'")
 
     def test_tc12_space_only_username(self):
+        """TC12: Tên đăng nhập chỉ chứa toàn khoảng trắng (Space-only)"""
+        self.login_page.enter_username("   ")
+        self.login_page.enter_password("123456")
+        self.login_page.click_login()
+        time.sleep(1)
+        error_msg = self.login_page.get_error_message()
+        self.login_page.capture_screenshot("TC12_space_only_username.png")
+        self.assertTrue("Tài khoản" in error_msg or "mật khẩu" in error_msg or "chưa nhập" in error_msg,
+                        f"Hệ thống không từ chối khoảng trắng hợp lệ. Nhận được: '{error_msg}'")
+
+    def test_tc13_space_only_password(self):
 
 if __name__ == '__main__':
     unittest.main()
