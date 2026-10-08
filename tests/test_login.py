@@ -189,6 +189,17 @@ class TestLogin(BaseTest):
                         f"Hệ thống xử lý SQL Injection không an toàn: '{error_msg}'")
 
     def test_tc15_xss_injection(self):
+        """TC15: Kiểm tra khả năng chống tấn công XSS Script Injection"""
+        self.login_page.enter_username("<script>alert(1)</script>")
+        self.login_page.enter_password("123456")
+        self.login_page.click_login()
+        time.sleep(1)
+        error_msg = self.login_page.get_error_message()
+        self.login_page.capture_screenshot("TC15_xss_injection.png")
+        self.assertTrue("Tài khoản" in error_msg or "mật khẩu" in error_msg,
+                        f"Hệ thống xử lý XSS không an toàn: '{error_msg}'")
+
+    def test_tc16_boundary_long_string(self):
 
 if __name__ == '__main__':
     unittest.main()
