@@ -122,6 +122,13 @@ class TestLogin(BaseTest):
         self.assertTrue(is_masked, "Ô mật khẩu không có thuộc tính type='password'")
 
     def test_tc09_google_sso_link(self):
+        """TC09: Kiểm tra chức năng liên kết 'Đăng nhập bằng e-mail UTC'"""
+        google_href = self.login_page.get_google_login_href()
+        self.login_page.capture_screenshot("TC09_google_sso.png")
+        self.assertTrue("accounts.google.com" in google_href or "oauth2" in google_href,
+                        f"Đường dẫn đăng nhập qua Google UTC không hợp lệ: {google_href}")
+
+    def test_tc10_forgot_password_link(self):
 
 if __name__ == '__main__':
     unittest.main()
