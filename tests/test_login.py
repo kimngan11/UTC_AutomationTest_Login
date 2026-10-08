@@ -65,6 +65,24 @@ class TestLogin(BaseTest):
                         f"Thông báo lỗi không đúng kỳ vọng. Nhận được: '{error_msg}'")
 
     def test_tc05_login_with_remember_me(self):
+        """TC05: Đăng nhập thành công và chọn 'Giữ tôi luôn đăng nhập'"""
+        self.login_page.enter_username(config.VALID_USERNAME)
+        self.login_page.enter_password(config.VALID_PASSWORD)
+        self.login_page.set_remember_me(True)
+        
+        self.assertTrue(self.login_page.is_remember_me_checked(),
+                        "Checkbox 'Giữ tôi luôn đăng nhập' chưa được tích chọn")
+        self.login_page.click_login()
+        time.sleep(1.5)
+        self.login_page.capture_screenshot("TC05_remember_me_checked.png")
+        
+        # Kiểm tra phản hồi thực tế (nếu tài khoản demo huongnt không tồn tại trên hệ thống thật thì báo lỗi)
+        error_msg = self.login_page.get_error_message(timeout=3)
+        self.assertEqual(error_msg, "", 
+                         f"Đăng nhập thất bại: Hệ thống báo '{error_msg}'. "
+                         f"(Tài khoản '{config.VALID_USERNAME}' không tồn tại hoặc sai mật khẩu trên máy chủ UTC)")
+
+    def test_tc06_login_without_remember_me(self):
 
 if __name__ == '__main__':
     unittest.main()
