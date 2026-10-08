@@ -101,6 +101,21 @@ class TestLogin(BaseTest):
                          f"(Tài khoản '{config.VALID_USERNAME}' không tồn tại hoặc sai mật khẩu trên máy chủ UTC)")
 
     def test_tc07_empty_all(self):
+        """TC07: Để trống cả Tên đăng nhập và Mật khẩu"""
+        self.login_page.enter_username("")
+        self.login_page.enter_password("")
+        self.login_page.click_login()
+        
+        error_msg = self.login_page.get_error_message()
+        self.login_page.capture_screenshot("TC07_empty_all.png")
+        self.assertIn("Bạn chưa nhập tên đăng nhập", error_msg,
+                      f"Thông báo lỗi không đúng kỳ vọng. Nhận được: '{error_msg}'")
+
+    # =========================================================================
+    # NHÓM 2: GIAO DIỆN & LIÊN KẾT LIÊN QUAN (TC08 - TC10)
+    # =========================================================================
+
+    def test_tc08_password_masked(self):
 
 if __name__ == '__main__':
     unittest.main()
