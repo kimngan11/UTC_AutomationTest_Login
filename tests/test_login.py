@@ -43,6 +43,17 @@ class TestLogin(BaseTest):
                       f"Thông báo lỗi không đúng kỳ vọng. Nhận được: '{error_msg}'")
 
     def test_tc03_correct_user_wrong_pass(self):
+        """TC03: Nhập đúng Tên đăng nhập, sai Mật khẩu"""
+        self.login_page.enter_username("huongnt")
+        self.login_page.enter_password("utc@235")
+        self.login_page.click_login()
+        
+        error_msg = self.login_page.get_error_message()
+        self.login_page.capture_screenshot("TC03_wrong_pass.png")
+        self.assertTrue("Tài khoản" in error_msg or "mật khẩu" in error_msg,
+                        f"Thông báo lỗi không đúng kỳ vọng. Nhận được: '{error_msg}'")
+
+    def test_tc04_wrong_user_valid_pass(self):
 
 if __name__ == '__main__':
     unittest.main()
