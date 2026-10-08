@@ -116,6 +116,12 @@ class TestLogin(BaseTest):
     # =========================================================================
 
     def test_tc08_password_masked(self):
+        """TC08: Kiểm tra tính năng ẩn mật khẩu (Masked characters)"""
+        is_masked = self.login_page.is_password_masked()
+        self.login_page.capture_screenshot("TC08_password_masked.png")
+        self.assertTrue(is_masked, "Ô mật khẩu không có thuộc tính type='password'")
+
+    def test_tc09_google_sso_link(self):
 
 if __name__ == '__main__':
     unittest.main()
