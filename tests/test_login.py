@@ -178,6 +178,17 @@ class TestLogin(BaseTest):
                         f"Hệ thống không từ chối khoảng trắng hợp lệ. Nhận được: '{error_msg}'")
 
     def test_tc14_sql_injection(self):
+        """TC14: Kiểm tra khả năng chống tấn công SQL Injection cơ bản"""
+        self.login_page.enter_username("' OR '1'='1")
+        self.login_page.enter_password("123456")
+        self.login_page.click_login()
+        time.sleep(1)
+        error_msg = self.login_page.get_error_message()
+        self.login_page.capture_screenshot("TC14_sql_injection.png")
+        self.assertTrue("Tài khoản" in error_msg or "mật khẩu" in error_msg,
+                        f"Hệ thống xử lý SQL Injection không an toàn: '{error_msg}'")
+
+    def test_tc15_xss_injection(self):
 
 if __name__ == '__main__':
     unittest.main()
