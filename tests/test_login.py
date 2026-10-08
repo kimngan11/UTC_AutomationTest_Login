@@ -237,6 +237,14 @@ class TestLogin(BaseTest):
                          f"Phím Tab không chuyển focus tới ô mật khẩu (userpwd). Nhận được: '{focused_elem_name}'")
 
     def test_tc20_footer_links(self):
+        """TC20: Kiểm tra tính đúng đắn của các liên kết hỗ trợ ở chân trang (Footer)"""
+        help_href = self.login_page.get_help_center_href()
+        feedback_href = self.login_page.get_feedback_href()
+        self.login_page.capture_screenshot("TC20_footer_links.png")
+        self.assertTrue("hotrokythuat.utc.edu.vn" in help_href,
+                        f"Link Trung tâm trợ giúp không hợp lệ: '{help_href}'")
+        self.assertTrue("mailto:hotrokythuat@utc.edu.vn" in feedback_href,
+                        f"Link Ý kiến phản hồi không hợp lệ: '{feedback_href}'")
 
 if __name__ == '__main__':
     unittest.main()
