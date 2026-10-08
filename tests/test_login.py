@@ -222,6 +222,14 @@ class TestLogin(BaseTest):
                         f"Hệ thống xử lý ký tự đặc biệt không đúng: '{error_msg}'")
 
     def test_tc18_placeholders(self):
+        """TC18: Kiểm tra văn bản gợi ý (Placeholder) trên các trường nhập liệu"""
+        user_ph = self.login_page.get_username_placeholder()
+        pwd_ph = self.login_page.get_password_placeholder()
+        self.login_page.capture_screenshot("TC18_placeholders.png")
+        self.assertEqual(user_ph, "Tên đăng nhập", f"Placeholder Username không đúng: '{user_ph}'")
+        self.assertEqual(pwd_ph, "Mật khẩu", f"Placeholder Password không đúng: '{pwd_ph}'")
+
+    def test_tc19_tab_key_navigation(self):
 
 if __name__ == '__main__':
     unittest.main()
