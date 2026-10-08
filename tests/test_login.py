@@ -167,6 +167,17 @@ class TestLogin(BaseTest):
                         f"Hệ thống không từ chối khoảng trắng hợp lệ. Nhận được: '{error_msg}'")
 
     def test_tc13_space_only_password(self):
+        """TC13: Mật khẩu chỉ chứa toàn khoảng trắng (Space-only)"""
+        self.login_page.enter_username("huongnt")
+        self.login_page.enter_password("   ")
+        self.login_page.click_login()
+        time.sleep(1)
+        error_msg = self.login_page.get_error_message()
+        self.login_page.capture_screenshot("TC13_space_only_password.png")
+        self.assertTrue("Tài khoản" in error_msg or "mật khẩu" in error_msg or "chưa nhập" in error_msg,
+                        f"Hệ thống không từ chối khoảng trắng hợp lệ. Nhận được: '{error_msg}'")
+
+    def test_tc14_sql_injection(self):
 
 if __name__ == '__main__':
     unittest.main()
