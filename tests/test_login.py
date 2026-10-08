@@ -129,6 +129,24 @@ class TestLogin(BaseTest):
                         f"Đường dẫn đăng nhập qua Google UTC không hợp lệ: {google_href}")
 
     def test_tc10_forgot_password_link(self):
+        """TC10: Kiểm tra liên kết 'Bạn quên mật khẩu đăng nhập ?'"""
+        self.login_page.click_forgot_password()
+        time.sleep(1.5)
+        
+        current_url = self.login_page.get_current_url()
+        page_title = self.login_page.get_title()
+        self.login_page.capture_screenshot("TC10_forgot_password.png")
+        
+        self.assertTrue("GetPass" in current_url,
+                        f"URL không chuyển hướng tới trang GetPass. Hiện tại: {current_url}")
+        self.assertIn("Lấy lại mật khẩu", page_title,
+                      f"Tiêu đề trang không đúng. Hiện tại: '{page_title}'")
+
+    # =========================================================================
+    # NHÓM 3: KIỂM THỬ NÂNG CAO, BẢO MẬT & TRẢI NGHIỆM (TC11 - TC20)
+    # =========================================================================
+
+    def test_tc11_login_with_enter_key(self):
 
 if __name__ == '__main__':
     unittest.main()
